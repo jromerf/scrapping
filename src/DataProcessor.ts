@@ -6,7 +6,6 @@ export class DataProcessor {
     private formatedData = new Map<number, Entry>();
 
     constructor(readonly dataScrapped: DataCollected) {
-        // console.log(JSON.stringify(dataScrapped));
         this.formatData();
     }
 
