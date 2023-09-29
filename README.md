@@ -7,8 +7,6 @@ This project consists of two classes: `DataCollector` and `DataProcessor`, desig
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
-- [Contribution](#contribution)
-- [License](#license)
 
 ## Installation
 
