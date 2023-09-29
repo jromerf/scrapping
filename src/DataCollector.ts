@@ -55,10 +55,8 @@ export class DataCollector {
                 return { title, meta };
             });
 
-            this.titleData = data.title;
-            this.metaData = data.meta;
-            
-            return;
+            const res:DataCollected = { titleData: data.title, metaData: data.meta };
+            return res;
         } catch (error) {
             throw new Error(`Failed to retrieve data: ${error}`);
         } finally {
@@ -68,9 +66,7 @@ export class DataCollector {
     }
 
     async getData() {
-        await this.scrapData();
-        const res:DataCollected = { titleData: this.titleData, metaData: this.metaData };
-        return res;
+        return await this.scrapData();
     }
 
 

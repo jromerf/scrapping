@@ -9,33 +9,34 @@ export class DataProcessor{
         this.formatData();
     }
 
+    private getMetaDataById(id:number){
+        const metaObj = this.dataScrapped.metaData.find((obj) => obj.id === id );
+        if(metaObj) return metaObj.values;
+        return null;
+    }
+
     private formatData() {
-        const titleAux = new Map();
-        const metaAux = new Map();
 
-        //TODO cambiar los any
-        this.dataScrapped.titleData.forEach((obj: any) => {
-            const { id, values } = obj;
-            titleAux.set(id, values);
-        });
-
-        this.dataScrapped.metaData.forEach((obj: any) => {
-            const { id, values } = obj;
-            metaAux.set(id, values);
-        });
-
-        titleAux.forEach((values, id) => {
-            if (metaAux.has(id)) {
-                const bValues = metaAux.get(id);
-                const newValues: Entry = {
-                    id,
-                    ...values,
-                    ...bValues,
-                    titleSize: values.title.length
+        try {
+            this.dataScrapped.titleData.forEach((obj) => {
+                const {id,values} = obj;
+                const metaValues = this.getMetaDataById(id);
+    
+                if(metaValues){
+                    const newValues:Entry = {
+                        id,
+                        ...values,
+                        ...metaValues,
+                        titleSize: values.title.length
+                    }
+                    this.formatedData.set(id,newValues);
                 }
-                this.formatedData.set(id, newValues);
-            }
-        });
+    
+            });
+            
+        } catch (error) {
+            throw new Error(`Error applying format to data: ${error}`);
+        }
     }
 
     filterByWordsInTitleSortByComments(wordsNum: number,greater: boolean = true) {
@@ -47,8 +48,7 @@ export class DataProcessor{
             }
         });
     
-        const res = new Map([...filtered.entries()].sort((a, b) => greater ? a[1].comment - b[1].comment : b[1].comment - a[1].comment));
-        console.log(res);
+        const res = new Map([...filtered.entries()].sort((a, b) => greater ? b[1].comment - a[1].comment: a[1].comment - b[1].comment));
         return res;
     }
     
@@ -61,8 +61,7 @@ export class DataProcessor{
             }
         });
     
-        const res = new Map([...filtered.entries()].sort((a, b) => greater ? a[1].score - b[1].score : b[1].score - a[1].score));
-        console.log(res);
+        const res = new Map([...filtered.entries()].sort((a, b) => greater ? b[1].score - a[1].score: a[1].score - b[1].score));
         return res;
     }
 }
