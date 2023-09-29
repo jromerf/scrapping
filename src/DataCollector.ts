@@ -3,9 +3,6 @@ import { DataCollected } from "./types";
 
 export class DataCollector {
 
-    private titleData = new Array();
-    private metaData = new Array();
-
     constructor(readonly URL: string) { }
 
     private async scrapData() {
@@ -40,9 +37,9 @@ export class DataCollector {
                     links.forEach((link) => {
                         const href = link.getAttribute('href')?.match(/[0-9]/g)?.join('');
                         if (link.textContent && link.textContent.includes('comments')) {
-                            const comment = Number(link.textContent.match(/[0-9]/g)?.join(''));
+                            const comments = Number(link.textContent.match(/[0-9]/g)?.join(''));
                             // comm.push(comment +' '+  href);
-                            secondRowData.set(Number(href), { comment, score: numScore });
+                            secondRowData.set(Number(href), { comments, score: numScore });
                         }
                     });
 
