@@ -23,3 +23,38 @@ To use this project, follow these steps:
 # DataCollector
 
 The DataCollector class is used to collect data. Here's an example of how to use it:
+
+```js
+import { DataCollector } from "./DataCollector";
+
+const url = "https://www.example.com";
+const collector = new DataCollector(url);
+
+(async () => {
+  const data = await collector.getData();
+  console.log(data);
+})();
+
+```
+
+# DataProcessor
+
+The DataProcessor class is responsible for formatting and filtering collected data. Here's an example:
+
+```js
+import { DataProcessor } from "./DataProcessor";
+import { DataCollected } from "./types";
+
+const dataFromPage: DataCollected = /* your data here */;
+const processor = new DataProcessor(dataFromPage);
+
+// Filter by the number of words in the title and sort descending by comments
+const filteredData = processor.filterByWordsInTitleSortByComments(10);
+
+console.log(filteredData);
+
+```
+
+# Examples 
+
+You could find examples in the test folder. 

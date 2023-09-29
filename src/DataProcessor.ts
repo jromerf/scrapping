@@ -51,6 +51,7 @@ export class DataProcessor {
                 }
             });
         }else{
+            // If wordsNum = 0 just sort 
             return new Map([...this.formatedData.entries()].sort((a, b) => greater ? b[1].comments - a[1].comments : a[1].comments - b[1].comments));
         }
         const res = new Map([...filtered.entries()].sort((a, b) => greater ? b[1].comments - a[1].comments : a[1].comments - b[1].comments));
@@ -69,6 +70,7 @@ export class DataProcessor {
                 }
             });
         }else{
+            // If wordsNum = 0 just sort 
             return new Map([...this.formatedData.entries()].sort((a, b) => greater ? b[1].score - a[1].score : a[1].score - b[1].score));
         }
 
