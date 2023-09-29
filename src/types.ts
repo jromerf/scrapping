@@ -1,0 +1,1 @@
+export type DataCollected = { titleData: Array<any>, metaData: Array<any> };
